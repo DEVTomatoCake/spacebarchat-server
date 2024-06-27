@@ -5212,7 +5212,31 @@
                     },
                     "components": {
                         "type": "array",
-                        "items": {}
+                        "items": {
+                            "type": "object",
+                            "properties": {},
+                            "additionalProperties": true
+                        }
+                    },
+                    "enforce_nonce": {
+                        "type": "boolean"
+                    },
+                    "applied_tags": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "thread_name": {
+                        "type": "string"
+                    },
+                    "avatar_url": {
+                        "type": "string"
+                    },
+                    "poll": {
+                        "type": "object",
+                        "properties": {},
+                        "additionalProperties": true
                     }
                 }
             },
@@ -5338,7 +5362,31 @@
                     },
                     "components": {
                         "type": "array",
-                        "items": {}
+                        "items": {
+                            "type": "object",
+                            "properties": {},
+                            "additionalProperties": true
+                        }
+                    },
+                    "enforce_nonce": {
+                        "type": "boolean"
+                    },
+                    "applied_tags": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "thread_name": {
+                        "type": "string"
+                    },
+                    "avatar_url": {
+                        "type": "string"
+                    },
+                    "poll": {
+                        "type": "object",
+                        "properties": {},
+                        "additionalProperties": true
                     }
                 }
             },
@@ -7915,6 +7963,23 @@
                 "required": [
                     "hook",
                     "user"
+                ]
+            },
+            "BulkBanSchema": {
+                "type": "object",
+                "properties": {
+                    "user_ids": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "delete_message_seconds": {
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "user_ids"
                 ]
             },
             "BulkDeleteSchema": {
@@ -13729,12 +13794,25 @@
         },
         "/guilds/{guild_id}/bulk-ban/": {
             "post": {
-                "x-permission-required": "BAN_MEMBERS",
+                "x-permission-required": [
+                    "BAN_MEMBERS",
+                    "MANAGE_GUILD"
+                ],
                 "security": [
                     {
                         "bearer": []
                     }
                 ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BulkBanSchema"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "",

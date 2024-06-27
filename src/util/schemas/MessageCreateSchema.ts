@@ -54,6 +54,10 @@ export interface MessageCreateSchema {
 	**/
 	attachments?: Attachment[];
 	sticker_ids?: string[];
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	components?: any[];
+	components?: object[];
+	enforce_nonce?: boolean;
+	applied_tags?: string[];
+	thread_name?: string;
+	avatar_url?: string;
+	poll?: object;
 }
